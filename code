@@ -4,8 +4,7 @@
 // @version      0.1
 // @description  More forum filters!
 // @author       FrazmOr
-// @match        *://shikimori.one/forum
-// @match        *://shikimori.one/forum/animanga
+// @match        *://shikimori.one/forum*
 // @icon         https://www.google.com/s2/favicons?sz=64&domain=shikimori.one
 // @downloadURL  https://raw.githubusercontent.com/FrazmOr/Shikimori-Forum-Filters-Plus/refs/heads/main/code
 // @updateURL    https://raw.githubusercontent.com/FrazmOr/Shikimori-Forum-Filters-Plus/refs/heads/main/code
