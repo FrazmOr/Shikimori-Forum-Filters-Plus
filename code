@@ -1,0 +1,257 @@
+// ==UserScript==
+// @name         Shikimori Forum Filters Plus
+// @namespace    http://tampermonkey.net/
+// @version      0.1
+// @description  More forum filters!
+// @author       FrazmOr
+// @match        *://shikimori.one/forum
+// @match        *://shikimori.one/forum/animanga
+// @icon         https://www.google.com/s2/favicons?sz=64&domain=shikimori.one
+// @downloadURL
+// @updateURL
+// @grant        none
+// ==/UserScript==
+function forum_character_filter() {
+    function create_element_if_not_exists({name, id, classes = [], style = {}, innerHTML, checked, type, value, href, textContent, parent}) {
+        if (!id || !document.getElementById(id)) {
+            const new_element = document.createElement(name);
+            if (id) new_element.id = id;
+            if (classes.length) new_element.classList.add(...classes);
+            if (style) Object.assign(new_element.style, style);
+            if (innerHTML) new_element.innerHTML = innerHTML;
+            if (checked !== undefined) new_element.checked = checked;
+            if (type) new_element.type = type;
+            if (value) new_element.value = value;
+            if (href) new_element.href = href;
+            if (textContent) new_element.textContent = textContent;
+            if (parent) parent.appendChild(new_element);
+            return new_element;
+        } else {
+            return document.getElementById(id);
+        }
+    }
+    //
+    const simple_form_first_div_common = document.querySelector('.simple_form.b-form.edit_user_preferences .forum.common:first-of-type');
+    const simple_form_first_div_common_input = document.querySelector('.simple_form.b-form.edit_user_preferences .forum.common:first-of-type .link-with-input input');
+    //
+    if (simple_form_first_div_common_input.checked === true) {
+        //
+        const div_forum_userscript = create_element_if_not_exists({
+            name: 'div',
+            id: 'div_forum_userscript',
+            classes: ['forum_userscript'],
+            style: {marginLeft: '10px'},
+        });
+        simple_form_first_div_common.insertAdjacentElement('afterend', div_forum_userscript);
+        //
+        const div_input_checkbox_with_span_text_animes = create_element_if_not_exists({
+            name: 'div',
+            id: 'div_input_checkbox_with_span_text_animes',
+            classes: ['div_input_checkbox_with_span_text_animes'],
+            parent: div_forum_userscript
+        });
+        //
+        const input_checkbox_animes = create_element_if_not_exists ({
+            name: 'input',
+            id: 'input_checkbox_animes',
+            checked: localStorage.getItem('input_checkbox_animes_state') === 'true',
+            type: 'checkbox',
+            value: 'showing',
+            style: {marginRight: '6px'},
+            parent: div_input_checkbox_with_span_text_animes
+        });
+        //
+        const span_text_animes = create_element_if_not_exists ({
+            name: 'span',
+            id: 'span_text_animes',
+            classes: ['span_text_animes'],
+            innerHTML: `<b>Аниме</b>`,
+            parent: div_input_checkbox_with_span_text_animes
+        });
+        //
+        const div_input_checkbox_with_span_text_mangas = create_element_if_not_exists({
+            name: 'div',
+            id: 'div_input_checkbox_with_span_text_mangas',
+            classes: ['div_input_checkbox_with_span_text_mangas'],
+            parent: div_forum_userscript
+        });
+        //
+        //
+        const input_checkbox_mangas = create_element_if_not_exists ({
+            name: 'input',
+            id: 'input_checkbox_mangas',
+            checked: localStorage.getItem('input_checkbox_mangas_state') === 'true',
+            type: 'checkbox',
+            value: 'showing',
+            style: {marginRight: '6px'},
+            parent: div_input_checkbox_with_span_text_mangas
+        });
+        //
+        const span_text_mangas = create_element_if_not_exists ({
+            name: 'span',
+            id: 'span_text_mangas',
+            classes: ['span_text_mangas'],
+            innerHTML: `<b>Манга</b>`,
+            parent: div_input_checkbox_with_span_text_mangas
+        });
+        //
+        const div_input_checkbox_with_span_text_ranobe = create_element_if_not_exists({
+            name: 'div',
+            id: 'div_input_checkbox_with_span_text_ranobe',
+            classes: ['div_input_checkbox_with_span_text_ranobe'],
+            parent: div_forum_userscript
+        });
+        //
+        //
+        const input_checkbox_ranobe = create_element_if_not_exists ({
+            name: 'input',
+            id: 'input_checkbox_ranobe',
+            checked: localStorage.getItem('input_checkbox_ranobe_state') === 'true',
+            type: 'checkbox',
+            value: 'showing',
+            style: {marginRight: '6px'},
+            parent: div_input_checkbox_with_span_text_ranobe
+        });
+        //
+        const span_text_ranobe = create_element_if_not_exists ({
+            name: 'span',
+            id: 'span_text_ranobe',
+            classes: ['span_text_ranobe'],
+            innerHTML: `<b>Ранобэ</b>`,
+            parent: div_input_checkbox_with_span_text_ranobe
+        });
+        //
+        const div_input_checkbox_with_span_text_characters = create_element_if_not_exists({
+            name: 'div',
+            id: 'div_input_checkbox_with_span_text_characters',
+            classes: ['div_input_checkbox_with_span_text_characters'],
+            parent: div_forum_userscript
+        });
+        //
+        //
+        const input_checkbox_characters = create_element_if_not_exists ({
+            name: 'input',
+            id: 'input_checkbox_characters',
+            checked: localStorage.getItem('input_checkbox_characters_state') === 'true',
+            type: 'checkbox',
+            value: 'showing',
+            style: {marginRight: '6px'},
+            parent: div_input_checkbox_with_span_text_characters
+        });
+        //
+        const span_text_characters = create_element_if_not_exists ({
+            name: 'span',
+            id: 'span_text_characters',
+            classes: ['span_text_characters'],
+            innerHTML: `<b>Персонажи</b>`,
+            parent: div_input_checkbox_with_span_text_characters
+        });
+        //
+        const div_input_checkbox_with_span_text_people = create_element_if_not_exists({
+            name: 'div',
+            id: 'div_input_checkbox_with_span_text_people',
+            classes: ['div_input_checkbox_with_span_text_people'],
+            parent: div_forum_userscript
+        });
+        //
+        //
+        const input_checkbox_people = create_element_if_not_exists ({
+            name: 'input',
+            id: 'input_checkbox_people',
+            checked: localStorage.getItem('input_checkbox_people_state') === 'true',
+            type: 'checkbox',
+            value: 'showing',
+            style: {marginRight: '6px'},
+            parent: div_input_checkbox_with_span_text_people
+        });
+        //
+        const span_text_people = create_element_if_not_exists ({
+            name: 'span',
+            id: 'span_text_people',
+            classes: ['span_text_people'],
+            innerHTML: `<b>Люди</b>`,
+            parent: div_input_checkbox_with_span_text_people
+        });
+        //
+        function animes_hiding_style() {
+            const target_topics_animes = document.querySelectorAll('.b-topic.b-topic-preview[data-url*="https://shikimori.one/forum/animanga/anime"]');
+            target_topics_animes.forEach(function(tta) {
+                tta.style.display = input_checkbox_animes.checked ? '' : 'none';
+            });
+        }
+        //
+        function mangas_hiding_style() {
+            const target_topics_mangas = document.querySelectorAll('.b-topic.b-topic-preview[data-url*="https://shikimori.one/forum/animanga/manga"]');
+            target_topics_mangas.forEach(function(ttm) {
+                ttm.style.display = input_checkbox_mangas.checked ? '' : 'none';
+            });
+        }
+        //
+        function ranobe_hiding_style() {
+            const target_topics_ranobe = document.querySelectorAll('.b-topic.b-topic-preview[data-url*="https://shikimori.one/forum/animanga/ranobe"]');
+            target_topics_ranobe.forEach(function(ttr) {
+                ttr.style.display = input_checkbox_ranobe.checked ? '' : 'none';
+            });
+        }
+        //
+        function characters_hiding_style() {
+            const target_topics_characters = document.querySelectorAll('.b-topic.b-topic-preview[data-url*="https://shikimori.one/forum/animanga/character"]');
+            target_topics_characters.forEach(function(ttc) {
+                ttc.style.display = input_checkbox_characters.checked ? '' : 'none';
+            });
+        }
+        //
+        function people_hiding_style() {
+            const target_topics_people = document.querySelectorAll('.b-topic.b-topic-preview[data-url*="https://shikimori.one/forum/animanga/person"]');
+            target_topics_people.forEach(function(ttp) {
+                ttp.style.display = input_checkbox_people.checked ? '' : 'none';
+            });
+        }
+        //
+        input_checkbox_animes.addEventListener('change', () => {
+            localStorage.setItem('input_checkbox_animes_state', input_checkbox_animes.checked);
+            animes_hiding_style();
+        });
+        //
+        input_checkbox_mangas.addEventListener('change', () => {
+            localStorage.setItem('input_checkbox_mangas_state', input_checkbox_mangas.checked);
+            mangas_hiding_style();
+        });
+        //
+        input_checkbox_ranobe.addEventListener('change', () => {
+            localStorage.setItem('input_checkbox_ranobe_state', input_checkbox_ranobe.checked);
+            ranobe_hiding_style();
+        });
+        //
+        input_checkbox_characters.addEventListener('change', () => {
+            localStorage.setItem('input_checkbox_characters_state', input_checkbox_characters.checked);
+            characters_hiding_style();
+        });
+        //
+        input_checkbox_people.addEventListener('change', () => {
+            localStorage.setItem('input_checkbox_people_state', input_checkbox_people.checked);
+            people_hiding_style();
+        });
+        //
+        animes_hiding_style();
+        mangas_hiding_style();
+        ranobe_hiding_style();
+        characters_hiding_style();
+        people_hiding_style();
+        //
+        const mutation_observer = new MutationObserver(function(mutationList, mutation_observer) {
+            animes_hiding_style();
+            mangas_hiding_style();
+            ranobe_hiding_style();
+            characters_hiding_style();
+            people_hiding_style();
+        });
+        //
+        mutation_observer.observe(document.body,{childList:true, subtree:true});
+    };
+}
+
+forum_character_filter();
+document.addEventListener('page:load', forum_character_filter);
+document.addEventListener('turbolinks:load', forum_character_filter);
+document.addEventListener('DOMContentLoaded', forum_character_filter);
